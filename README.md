@@ -1,2 +1,2 @@
 # CompetitiveProgramming
-Templates that i use and solutions to the problems i have solved from different websites
+Templates that I use and solutions to the problems that I have solved from different websites
