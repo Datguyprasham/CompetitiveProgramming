@@ -77,14 +77,18 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	ll n,k;cin>>n>>k;
-	if(k<=(n-(n/2))) cout<<2*k -1;
-	else{
-		k=k-(n-(n/2));
-		cout<<2*k;
+	string s;cin>>s;
+	int q,cnt=0,dp[100005];cin>>q;
+	for(int i=1;i<s.size();i++){
+		if(s[i]==s[i-1]) cnt++;
+
+		dp[i]=cnt;
 	}
-	
-}		
+	while(q--){
+		int l,r;cin>>l>>r;
+		cout<<dp[r-1]-dp[l-1]<<nline;
+	}
+}
 
 int main() {
 #ifdef ErrorCheck
@@ -92,9 +96,9 @@ int main() {
 #endif
 	fastio();
 	auto start1 = high_resolution_clock::now();
-	int tc=1;
+	int tc;cin>>tc;
 	for (int t = 1; t <= tc; t++) {
-        // cout << "Case #" << t  << ": ";
+        //cout << "Case #" << t  << ": ";
         solve();
     }
 	auto stop1 = high_resolution_clock::now();

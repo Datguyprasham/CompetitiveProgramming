@@ -75,16 +75,23 @@ ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) %
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}  //only for prime m
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
+const int MAX_N=2e5+1;
+int arr[MAX_N];
 
 void solve() {
-	ll n,k;cin>>n>>k;
-	if(k<=(n-(n/2))) cout<<2*k -1;
-	else{
-		k=k-(n-(n/2));
-		cout<<2*k;
+	string s;cin>>s;
+	int m, x;cin>>m;
+	while(m--){
+		cin>>x;
+		arr[x-1]++;
 	}
-	
-}		
+	int n = s.length();
+	for (int i=0;i<n/2;i++) {
+		if (i!=0) arr[i]+=arr[i - 1];
+		if (arr[i]&1) swap(s[i], s[n-i-1]);
+	}
+	cout<<s;
+}
 
 int main() {
 #ifdef ErrorCheck

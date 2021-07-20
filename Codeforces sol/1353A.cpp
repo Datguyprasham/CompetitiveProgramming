@@ -28,10 +28,8 @@ void solve(){
 	ll n,m;cin>>n>>m;
 	if(n==1)
 		cout<<0<<'\n';
-	else if(n>2 && m==1)
+	else if(m==1)
 		cout<<2<<'\n';
-	else if(n<2 && m==1)
-		cout<<1<<'\n';
 	else if(n==2)
 		cout<<m<<'\n';
 	else

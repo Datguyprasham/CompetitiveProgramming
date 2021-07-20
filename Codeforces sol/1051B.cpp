@@ -77,14 +77,12 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	ll n,k;cin>>n>>k;
-	if(k<=(n-(n/2))) cout<<2*k -1;
-	else{
-		k=k-(n-(n/2));
-		cout<<2*k;
+	ll l,r;cin>>l>>r;
+	cout<<"YES \n";
+	for(ll i=l;i<=r;i+=2){
+		cout<<i<<" "<<i+1<<nline;
 	}
-	
-}		
+}
 
 int main() {
 #ifdef ErrorCheck

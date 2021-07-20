@@ -77,14 +77,34 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	ll n,k;cin>>n>>k;
-	if(k<=(n-(n/2))) cout<<2*k -1;
-	else{
-		k=k-(n-(n/2));
-		cout<<2*k;
+	int n;cin>>n;
+	vll v(n),pref1(n),pref2(n);
+	for(int i=0;i<n;i++){
+		cin>>v[i];
+		if(i==0) pref1[i]=v[i];
+		else pref1[i]=pref1[i-1] + v[i];
 	}
-	
-}		
+
+	sort(all(v));
+	for(int i=0;i<n;i++){
+		if(i==0) pref2[i]=v[i];
+		else pref2[i]=pref2[i-1] + v[i];
+	}
+
+	int q,type,l,r;cin>>q;
+	while(q--){
+		cin>>type>>l>>r;
+		l--;r--;
+		if(type==1){
+			if(l==0) cout<<pref1[r]<<nline;
+			else cout<<pref1[r]-pref1[l-1]<<nline;
+		}
+		else{
+			if(l==0) cout<<pref2[r]<<nline;
+			else cout<<pref2[r]-pref2[l-1]<<nline;
+		}
+	}
+}
 
 int main() {
 #ifdef ErrorCheck

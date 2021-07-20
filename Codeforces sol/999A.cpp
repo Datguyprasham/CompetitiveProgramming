@@ -77,14 +77,29 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	ll n,k;cin>>n>>k;
-	if(k<=(n-(n/2))) cout<<2*k -1;
-	else{
-		k=k-(n-(n/2));
-		cout<<2*k;
+	int n,k;cin>>n>>k;
+	int arr[n];
+	for(int i=0;i<n;i++)
+		cin>>arr[i];
+	int ans=0;
+	for(int i=0;i<n;i++){
+		if(arr[i]<=k) ans++;
+		else break;
 	}
-	
-}		
+
+	if(ans==n){
+		cout<<ans;
+		return;
+	}
+
+	for(int i=n-1;i>=0;i--){
+		if(arr[i]<=k) ans++;
+		else break;
+	}
+
+	cout<<ans<<nline;
+
+}
 
 int main() {
 #ifdef ErrorCheck
@@ -94,7 +109,7 @@ int main() {
 	auto start1 = high_resolution_clock::now();
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
-        // cout << "Case #" << t  << ": ";
+        //cout << "Case #" << t  << ": ";
         solve();
     }
 	auto stop1 = high_resolution_clock::now();
