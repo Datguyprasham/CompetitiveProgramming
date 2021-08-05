@@ -77,18 +77,41 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	string s;cin>>s;
-	int ans=0,cnt=0;
-	while((int)s.size() !=1){
-		ans=0;
-		for(int i=0;i<(int)s.size();i++){
-			ans+=s[i]-'0';
-		}
-		s=to_string(ans);
-		cnt++;
+	int n,m,k,x;cin>>n>>m>>k;
+	vector<int> holes(m);
+	for(int i=0;i<m;i++){
+		cin>>holes[i];
+	}
+	
+	sort(holes.begin(),holes.end());
+
+	if(binary_search(holes.begin(),holes.end(),1)){
+		cout<<1<<nline;
+		return;
 	}
 
-	cout<<cnt<<nline;
+	vector<int>arr(n+1,0);
+	arr[1]=1;
+	
+	while(k--){
+		int u,v;cin>>u>>v;
+		swap(arr[u],arr[v]);
+		if((binary_search(holes.begin(),holes.end(),v) && arr[v]==1)){
+			cout<<v;
+			return;
+		}
+		if(binary_search(holes.begin(),holes.end(),u) && arr[u]==1){
+			cout<<u;
+			return;
+		}
+	}
+
+	for(int i=1;i<=n;i++){
+		if(arr[i]==1){
+			cout<<i<<"\n";
+			return;
+		}
+	}
 }
 
 int main() {

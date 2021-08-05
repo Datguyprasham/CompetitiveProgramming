@@ -77,18 +77,33 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	string s;cin>>s;
-	int ans=0,cnt=0;
-	while((int)s.size() !=1){
-		ans=0;
-		for(int i=0;i<(int)s.size();i++){
-			ans+=s[i]-'0';
+	int n,x;cin>>n;
+	map<int,vector<int>> occur;
+	for(int i=0;i<n;i++){
+		cin>>x;
+		occur[x].pb(i+1);
+	}	
+
+	vector<pair<int,int>>ans;
+	auto itr=occur.begin();
+	while(itr!=occur.end()){
+		auto temp=itr->first;
+		if(occur[temp].size()==1)
+			ans.pb({temp,0});
+		else{
+			set<int>s;
+			for(int i=1;i<occur[temp].size();i++)
+				s.insert(abs(occur[temp][i]-occur[temp][i-1]));
+			if(s.size()==1)
+				ans.pb({temp,*s.begin()});
 		}
-		s=to_string(ans);
-		cnt++;
+		itr++;
 	}
 
-	cout<<cnt<<nline;
+	cout<<ans.size()<<nline;
+	for(int i=0;i<ans.size();i++){
+		cout<<ans[i].ff<<" "<<ans[i].ss<<nline;
+	}
 }
 
 int main() {

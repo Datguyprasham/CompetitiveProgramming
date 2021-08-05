@@ -9,7 +9,7 @@ using namespace chrono;
 // using namespace __gnu_pbds;
 
 #define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
-#define MOD 1000000007
+//#define MOD 1000003
 #define MOD1 998244353
 #define INF 1e18
 #define nline "\n"
@@ -78,17 +78,25 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 
 void solve() {
 	string s;cin>>s;
-	int ans=0,cnt=0;
-	while((int)s.size() !=1){
-		ans=0;
-		for(int i=0;i<(int)s.size();i++){
-			ans+=s[i]-'0';
-		}
-		s=to_string(ans);
-		cnt++;
+	string ans="";
+	for(int i=0;i<(int)s.size();i++){
+		if(s[i]=='>') ans+="1000";
+		else if(s[i]=='<') ans+="1001";
+		else if(s[i]=='+') ans+="1010";
+		else if(s[i]=='-') ans+="1011";
+		else if(s[i]=='.') ans+="1100";
+		else if(s[i]==',') ans+="1101";
+		else if(s[i]=='[') ans+="1110";
+		else ans+="1111";
+	}
+	ll num=0,j=0;
+	for(int i=(int)ans.size()-1;i>=0;i--){
+		if(ans[i]=='1')
+			num+=expo(2,j,1000003);
+		j++;
 	}
 
-	cout<<cnt<<nline;
+	cout<<num%1000003<<nline;
 }
 
 int main() {

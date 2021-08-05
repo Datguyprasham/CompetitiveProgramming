@@ -77,18 +77,37 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	string s;cin>>s;
-	int ans=0,cnt=0;
-	while((int)s.size() !=1){
-		ans=0;
-		for(int i=0;i<(int)s.size();i++){
-			ans+=s[i]-'0';
-		}
-		s=to_string(ans);
-		cnt++;
+	int a,b,x;cin>>a>>b>>x;
+	string s0,s1,ans;
+	for(int i=0;i<200;i++){
+		if(i%2==0) s1.pb('1');
+		else s1.pb('0');
 	}
 
-	cout<<cnt<<nline;
+	for(int i=0;i<200;i++){
+		if(i%2==0) s0.pb('0');
+		else s0.pb('1');
+	}
+
+	if(x==1){
+		for(int i=0;i<a;i++) cout<<0;
+		for(int i=0;i<b;i++) cout<<1;
+		return;
+	}
+	else if(a>=b){
+		int cnt0=(x+1)/2,cnt1=x/2;
+		//for(int i=0;i<a-cnt0;i++) ans.pb('0');
+		ans+=s0.substr(0,x+1);
+		//for(int i=0;i<b-cnt1;i++) ans.pb('1');
+	}
+
+	else{
+		int cnt1=(x+1)/2,cnt0=x/2;
+		//for(int i=0;i<b-cnt1;i++) ans.pb('1');
+		ans+=s1.substr(0,x+1);
+		//for(int i=0;i<a-cnt0;i++) ans.pb('0');
+	}
+	cout<<ans<<nline;
 }
 
 int main() {

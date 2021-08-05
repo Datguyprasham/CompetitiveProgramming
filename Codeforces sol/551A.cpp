@@ -77,18 +77,19 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	string s;cin>>s;
-	int ans=0,cnt=0;
-	while((int)s.size() !=1){
-		ans=0;
-		for(int i=0;i<(int)s.size();i++){
-			ans+=s[i]-'0';
-		}
-		s=to_string(ans);
-		cnt++;
-	}
+	int n;cin>>n;
+	int arr[n];
+	for(int i=0;i<n;i++)
+		cin>>arr[i];
 
-	cout<<cnt<<nline;
+	for(int i=0;i<n;i++){
+		int temp=1;
+		for(int j=0;j<n;j++){
+			if(arr[j]>arr[i]) temp++;
+
+		}
+		cout<<temp<<" ";
+	}
 }
 
 int main() {

@@ -75,20 +75,36 @@ ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) %
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}  //only for prime m
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
+const ll MAX_N=1e6+1;
+
+vector<bool>is_prime(MAX_N,true);
+
+
+void sieve() {
+    //declare is_prime as global bool vector
+    is_prime[0]=is_prime[1]=false;
+    for (int i = 2; i * i <= MAX_N; i++){
+        if (is_prime[i]){
+            for (int j = i * i; j <= MAX_N; j += i)
+                is_prime[j] = false;
+        }
+    }
+}
+
+ll sqroot(ll x){
+	ll temp=sqrt(x);
+	if(x==temp*temp) return temp;
+	else return 1;
+}
 
 void solve() {
-	string s;cin>>s;
-	int ans=0,cnt=0;
-	while((int)s.size() !=1){
-		ans=0;
-		for(int i=0;i<(int)s.size();i++){
-			ans+=s[i]-'0';
-		}
-		s=to_string(ans);
-		cnt++;
+	ll n,x;cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>x;
+		ll temp=sqroot(x);
+		if(is_prime[temp]) cout<<"YES"<<nline;
+		else cout<<"NO"<<nline;
 	}
-
-	cout<<cnt<<nline;
 }
 
 int main() {
@@ -100,6 +116,7 @@ int main() {
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
+        sieve();
         solve();
     }
 	auto stop1 = high_resolution_clock::now();
