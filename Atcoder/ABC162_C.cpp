@@ -60,7 +60,7 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 // void _print(pbds v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
-ll gcd(ll a, ll b) {if (b > a) {return gcd(b, a);} if (b == 0) {return a;} return gcd(b, a % b);}
+int gcd(int a, int b) {if (b > a) {return gcd(b, a);} if (b == 0) {return a;} return gcd(b, a % b);}
 ll expo(ll a, ll b, ll mod) {ll res = 1; while (b > 0) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b = b >> 1;} return res;}
 void extendgcd(ll a, ll b, ll*v) {if (b == 0) {v[0] = 1; v[1] = 0; v[2] = a; return ;} extendgcd(b, a % b, v); ll x = v[1]; v[1] = v[0] - v[1] * (a / b); v[0] = x; return;} //pass an arry of size1 3
 ll mminv(ll a, ll b) {ll arr[3]; extendgcd(a, b, arr); return arr[0];} //for non prime b
@@ -77,21 +77,17 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
+	int k;cin>>k;
+	int temp,ans=0;
+	for(int i=1;i<=k;i++){
+		for(int j=1;j<=k;j++){
+			for(int l=1;l<=k;l++){
+				temp=gcd(i,j);
+				ans+=gcd(l,temp);
 			}
 		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
 	}
-	cout<<"NO"<<nline;
+	cout<<ans;
 }
 
 int main() {

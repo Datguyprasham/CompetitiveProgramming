@@ -77,21 +77,47 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+	// int n,m;cin>>n>>m;
+	// vector<int> a(n);
+	// vector<int> b(m);
+	// for(int i=0;i<n;i++)
+	// 	cin>>a[i];
+
+	// for(int i=0;i<m;i++)
+	// 	cin>>b[i];
+
+	// sort(all(a));
+	// sort(all(b));
+	// int diff=INT_MAX,i=0,j=0;
+	// while((i<n) && (j<m)){
+	// 	diff=min(diff,abs(a[i]-b[j]));
+	// 	if(a[i]>b[j]) j++;
+	// 	else i++;
+	// }
+	// cout<<diff;
+
+	int n,m;cin>>n>>m;
+	vector<int>a(n);
+	vector<int>b(m);
+
+	for(int i=0;i<n;i++) cin>>a[i];
+
+	for(int i=0;i<m;i++) cin>>b[i];
+
+	sort(a.begin(),a.end());
+	sort(b.begin(),b.end());
+	int diff=INT_MAX;
+
+	for(int i=0;i<n;i++){
+		auto temp1=*lower_bound(b.begin(),b.end(),a[i]);
+		diff=min(diff,abs(a[i]-temp1));
 	}
-	cout<<"NO"<<nline;
+
+	for(int i=0;i<m;i++){
+		auto temp1=*lower_bound(a.begin(),a.end(),b[i]);
+		diff=min(diff,abs(b[i]-temp1));
+	}
+	cout<<diff;
 }
 
 int main() {

@@ -76,22 +76,58 @@ ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprim
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
-void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
+void solve(){
+	int n,m;cin>>n>>m;
+	vector<set<int>>adj(n+1);
+
+	while(m--){
+		int u,v;cin>>u>>v;
+		adj[u].insert(v);
+		adj[v].insert(u);
+	}
+	int cnt=0;
+	vector<bool> check(n+1,false); //will keep track whether i node is good or not
+
+	//calsulate good nodes before
+	for(int i=1;i<=n;i++){
+		if(adj[i].lower_bound(i)== adj[i].end())
+			check[i]=1,cnt++;
+	}
+
+	int q;cin>>q;
+	while(q--){
+		int type,u,v;
+		cin>>type;
+		if(type==3) cout<<cnt<<nline;
 		else{
-			cout<<"NO"<<nline;
-			return;
+			cin>>u>>v;
+
+			//we read nodes as reduce the value of good nodes if u or v nodes were good before
+			//this is done because we will make changes in u and v nodes so we will check for them and then change ans accordingly
+			if(check[u]) cnt--;
+			if(check[v]) cnt--;
+
+			if(type==1){
+				adj[u].insert(v);
+				adj[v].insert(u);
+			}
+			else{
+				adj[u].erase(v);
+				adj[v].erase(u);
+			}
+
+			if(adj[u].lower_bound(u) != adj[u].end()) check[u]=0;
+			else check[u]=1;
+
+			if(adj[v].lower_bound(v) != adj[v].end()) check[v]=0;
+			else check[v]=1;
+
+
+			//after checking for u and v we can now cheange ans accordingly
+			if(check[u]) cnt++;
+			if(check[v]) cnt++;
 		}
 	}
-	cout<<"NO"<<nline;
 }
 
 int main() {

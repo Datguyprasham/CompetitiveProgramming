@@ -8,6 +8,8 @@ using namespace std;
 using namespace chrono;
 // using namespace __gnu_pbds;
 
+#pragma GCC optimize "trapv"  //RE for overflow
+
 #define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
@@ -76,22 +78,37 @@ ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprim
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
-void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
-	}
-	cout<<"NO"<<nline;
+void dgp() {
+	int n,x;cin>>n>>x;
+    vector<int> arr(n),ans(n);
+    int sum = 0;
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+        ans[i] = arr[i] % x;
+        sum += ans[i];
+    }
+    if(sum%x != 0) cout<<n<<nline;
+    else{
+    	int i,m = -1,l = -1;
+        for(i=0;i<n;i++){
+            if(ans[i] % x != 0) break; 
+        }
+        if(i != n) m = i+1;
+
+        for(i=n-1;i>=0;i--){
+            if(ans[i] % x != 0)break;
+        }
+
+        if(i != -1) l = i;
+
+        if(m != -1 && l != -1){
+            cout<<n - min(m,n-l)<<nline;
+        }
+
+        else if(m == -1 && l != -1) cout<<n - (n-l-1)<<nline;
+        else if(l == -1 && m != -1) cout<<n - m<<nline;
+        else cout<<-1<<nline;
+    }
 }
 
 int main() {
@@ -100,10 +117,10 @@ int main() {
 #endif
 	fastio();
 	auto start1 = high_resolution_clock::now();
-	int tc=1;
+	int tc;cin>>tc;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
-        solve();
+       	dgp();
     }
 	auto stop1 = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop1 - start1);

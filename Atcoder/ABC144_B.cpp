@@ -78,20 +78,18 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 
 void solve() {
 	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
+	if(n>81) cout<<"No";
+	else{
+		for(int i=1;i<=9;i++){
+			for(int j=1;j<=9;j++){
+				if(i*j==n){
+					cout<<"Yes";
+					return;
+				}
 			}
 		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+		cout<<"No";
 	}
-	cout<<"NO"<<nline;
 }
 
 int main() {

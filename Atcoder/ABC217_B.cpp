@@ -8,6 +8,8 @@ using namespace std;
 using namespace chrono;
 // using namespace __gnu_pbds;
 
+#pragma GCC optimize "trapv"  //RE for overflow
+
 #define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
@@ -77,21 +79,13 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+	map<string,int> check={{"ABC",0}, {"ARC",0}, {"AHC",0}, {"AGC",0}};
+	int n=3;
+	while(n--){
+		string s;cin>>s;
+		check[s]++;
 	}
-	cout<<"NO"<<nline;
+	for(auto a:check) if(a.ss==0) cout<<a.ff<<nline;
 }
 
 int main() {
@@ -103,7 +97,7 @@ int main() {
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
-        solve();
+       	solve();
     }
 	auto stop1 = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop1 - start1);

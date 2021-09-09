@@ -75,23 +75,19 @@ ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) %
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}  //only for prime m
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
+bool check(int m){
+    int temp=m;
+    while(temp){if(temp%10==7)return 0;temp/=10;}
+    while(m){if(m%8==7)return 0;m/=8;}
+    return 1;
+}
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+	int n,ans=0;cin>>n;
+	for(int i=1;i<=n;i++){
+		if(check(i)) ans++;
 	}
-	cout<<"NO"<<nline;
+	cout<<ans;
 }
 
 int main() {
@@ -102,7 +98,7 @@ int main() {
 	auto start1 = high_resolution_clock::now();
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
-        //cout << "Case #" << t  << ": ";
+        // cout << "Case #" << t  << ": ";
         solve();
     }
 	auto stop1 = high_resolution_clock::now();

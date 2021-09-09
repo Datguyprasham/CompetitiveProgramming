@@ -78,20 +78,24 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 
 void solve() {
 	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
+	vector<pair<int,pair<ll,ll>>>p;
+
+	for(int i=0;i<n;i++){
+		int x;cin>>x;
+		ll l,r;cin>>l>>r;
+		p[i].ff=x;
+		p[i].ss=mp(l,r);
+	}
+
+	for(int i=0;i<n-1;i++){
+		for(int j=i+1;j<n;j++){
+			if(p[i].ff==1 && p[j].ff==1){
+				if(p[i].ss.ss >= p[j].ss.ff) cnt++;
 			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
+
+			if(p[i].ff==2)
 		}
 	}
-	cout<<"NO"<<nline;
 }
 
 int main() {
@@ -100,9 +104,9 @@ int main() {
 #endif
 	fastio();
 	auto start1 = high_resolution_clock::now();
-	int tc=1;
+	int tc;cin>>tc;
 	for (int t = 1; t <= tc; t++) {
-        //cout << "Case #" << t  << ": ";
+        // cout << "Case #" << t  << ": ";
         solve();
     }
 	auto stop1 = high_resolution_clock::now();

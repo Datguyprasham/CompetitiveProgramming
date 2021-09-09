@@ -78,20 +78,19 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 
 void solve() {
 	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+	ll ans=0,x;
+	vll sum(n),arr(n);
+	for(int i=0;i<n;i++){
+		cin>>arr[i];
+		if(i==0) sum[i]=arr[i];
+		sum[i]+=arr[i];
 	}
-	cout<<"NO"<<nline;
+
+	for(int i=0;i<n-1;i++){
+		ans+=arr[i]*(sum[i+1]);
+	}
+
+	cout<<ans;
 }
 
 int main() {
@@ -102,7 +101,7 @@ int main() {
 	auto start1 = high_resolution_clock::now();
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
-        //cout << "Case #" << t  << ": ";
+        // cout << "Case #" << t  << ": ";
         solve();
     }
 	auto stop1 = high_resolution_clock::now();

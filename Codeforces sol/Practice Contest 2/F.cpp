@@ -75,23 +75,23 @@ ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) %
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}  //only for prime m
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
-
+const int MAX_N=2e5+1;
+double pref[MAX_N];
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+	int n,k;cin>>n>>k;
+	int weeks=n-k+1;
+	long double sum=0;
+	for(int i=1;i<=n;i++){
+		cin>>pref[i];
+		pref[i]+=pref[i-1];
 	}
-	cout<<"NO"<<nline;
+
+	for(int i=1;i<=n-weeks+1;i++){
+		sum+=pref[i+weeks-1]-pref[i-1];
+	}
+	sum/=weeks;
+	cout<<fixed<<setprecision(10)<<sum<<nline;
+	
 }
 
 int main() {

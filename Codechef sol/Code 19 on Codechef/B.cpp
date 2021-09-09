@@ -77,21 +77,20 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
+	string s;cin>>s;
+	int san=0,ban=0;
+	for(int i=0;i<(int)s.size();){
+		if(s[i]=='S'){
+			san+=s[i+1]-'0';
+			i+=2;
 		}
 		else{
-			cout<<"NO"<<nline;
-			return;
+			ban+=s[i+1]-'0';
+			i+=2;
 		}
 	}
-	cout<<"NO"<<nline;
+	if(san-ban>=2){cout<<"S";return;}
+	else{cout<<"B";return;}
 }
 
 int main() {

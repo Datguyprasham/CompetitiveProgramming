@@ -8,6 +8,8 @@ using namespace std;
 using namespace chrono;
 // using namespace __gnu_pbds;
 
+#pragma GCC optimize "trapv"  //RE for overflow
+
 #define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
@@ -76,22 +78,29 @@ ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprim
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
-void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+void dgp() {
+	int n,q;cin>>n>>q;
+	vector<ll> arr(n+1);
+	for(int i=1;i<=n;i++) cin>>arr[i];
+
+	vector<ll>cnt(n+2,0);
+	while(q--){
+		ll l,r;cin>>l>>r;
+		cnt[l]++;
+		cnt[r+1]--;
 	}
-	cout<<"NO"<<nline;
+
+	for(int i=1;i<n+1;i++) cnt[i]+=cnt[i-1];
+	
+	sort(arr.begin(),arr.end(),greater<ll>());
+	sort(cnt.begin(),cnt.end(),greater<ll>());
+
+	debug(cnt);
+	ll sum=0;
+	for(int i=0;i<n+1;i++){
+		sum+=arr[i]*cnt[i];
+	}
+	cout<<sum<<nline;
 }
 
 int main() {
@@ -103,7 +112,7 @@ int main() {
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
-        solve();
+       	dgp();
     }
 	auto stop1 = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop1 - start1);

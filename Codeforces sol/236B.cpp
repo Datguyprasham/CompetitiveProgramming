@@ -9,7 +9,7 @@ using namespace chrono;
 // using namespace __gnu_pbds;
 
 #define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
-#define MOD 1000000007
+#define MOD 1073741824
 #define MOD1 998244353
 #define INF 1e18
 #define nline "\n"
@@ -75,23 +75,46 @@ ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) %
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}  //only for prime m
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
+const ll MAX_N=1e6+1;
+vector<bool> is_prime(MAX_N,true);
+vector<ll> factors;
+
+void sieve() {
+    //declare is_prime as global bool vector
+    is_prime[0]=is_prime[1]=false;
+    for (int i = 2; i * i <= MAX_N; i++){
+        if (is_prime[i]){
+            for (int j = i * i; j <= MAX_N; j += i)
+                is_prime[j] = false;
+        }
+    }
+}
+
+void count(ll n){
+	ll ans=1;
+	for(auto i=2;i<)
+}
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
+	int a,b,c;cin>>a>>b>>c;
+	ll ans=0,n=a*b*c;
+	// vector<ll> factors(n+1,2);
+	// for(int i=2;i<=(n/2)+1;i++){
+	// 	for(ll j=2*i;j<=n;j+=i){
+	// 		factors[j]++;
+	// 	}
+	// }
+
+	for(int i=1;i<=a;i++){
+		for(int j=1;j<=b;j++){
+			for(int k=1;k<=c;k++){
+				ll temp=i*j*k;
+				ans+=(factors[temp-1])%MOD;
 			}
 		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
 	}
-	cout<<"NO"<<nline;
+
+	cout<<ans%MOD<<nline;
 }
 
 int main() {

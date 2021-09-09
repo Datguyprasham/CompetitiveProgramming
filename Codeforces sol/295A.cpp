@@ -76,22 +76,43 @@ ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprim
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
-void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+void dgp() {
+	ll n,m,k;cin>>n>>m>>k;
+	vll ip(n+1);
+	for(int i=1;i<=n;i++) cin>>ip[i];
+
+	vector<pair<ll,ll>> ops(m+1);
+	vector<ll> val(m+1);
+
+	//read operations
+	for(int i=1;i<m+1;i++){
+		cin>>ops[i].ff>>ops[i].ss>>val[i];
 	}
-	cout<<"NO"<<nline;
+
+	vector<ll> cnt(m+2,0);
+	while(k--){
+		ll l,r;cin>>l>>r;
+		cnt[l]++;
+		cnt[r+1]--;
+	}
+
+	for(int i=1;i<m+1;i++){
+		cnt[i]+=cnt[i-1];
+	}
+	vll ans(n+2,0);
+	for(int i=1;i<m+1;i++){
+		ll l=ops[i].ff,r=ops[i].ss;
+		ans[l]+=cnt[i]*val[i];
+		ans[r+1]-=cnt[i]*val[i];
+	}
+
+	for(int i=1;i<n+1;i++){
+		ans[i]+=ans[i-1];
+	}
+
+	for(int i=1;i<n+1;i++){
+		cout<<ip[i]+ans[i]<<" ";
+	}
 }
 
 int main() {
@@ -103,7 +124,7 @@ int main() {
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
-        solve();
+        dgp();
     }
 	auto stop1 = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop1 - start1);

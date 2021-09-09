@@ -77,21 +77,63 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
+	int n,m;cin>>n>>m;
+	vector<vector<int>> arr(n,vector<int>(m));
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			cin>>arr[i][j];
+		}
+	}
+
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			if(arr[i][j]>4){
+				cout<<"NO"<<nline;
+				return;
+			}
+			int cnt=0;
+			if(arr[i][j]==0) continue;
+			if(i-1>=0 && arr[i-1][j]>0) cnt++;
+			if(j-1>=0 && arr[i][j-1]>0) cnt++;
+			if(i+1<n && arr[i+1][j]>0) cnt++;
+			if(j+1<m && arr[i][j+1]>0) cnt++;
+
+			while(cnt<arr[i][j]){
+				if(i-1>=0 && arr[i-1][j]==0) arr[i-1][j]++;
+				else if(j-1>=0 && arr[i][j-1]==0) arr[i][j-1]++;
+				else if(j+1<m && arr[i][j+1]==0) arr[i][j+1]++;
+				else if(i+1<n && arr[i+1][j]==0) arr[i+1][j]++;
+				cnt++;
+			}
+		}
+	}
+
+	//4th test case types
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			if(arr[i][j]==0) continue; 
+			int cnt=0;
+			if(i-1>=0 && arr[i-1][j]>0) cnt++;
+			if(j-1>=0 && arr[i][j-1]>0) cnt++;
+			if(i+1<n && arr[i+1][j]>0) cnt++;
+			if(j+1<m && arr[i][j+1]>0) cnt++;
+
+			if(cnt>=arr[i][j]) arr[i][j]=cnt;
+			else{
+				cout<<"NO"<<nline;
 				return;
 			}
 		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
 	}
-	cout<<"NO"<<nline;
+
+
+	cout<<"YES"<<nline;
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			cout<<arr[i][j]<<" ";
+		}
+		cout<<nline;
+	}
 }
 
 int main() {
@@ -100,7 +142,7 @@ int main() {
 #endif
 	fastio();
 	auto start1 = high_resolution_clock::now();
-	int tc=1;
+	int tc;cin>>tc;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
         solve();

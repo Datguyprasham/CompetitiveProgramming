@@ -77,21 +77,17 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+	int a,b,c;cin>>a>>b>>c;
+	if((c&1)){
+		if(a>b) cout<<">"<<nline;
+		else if(a<b) cout<<"<"<<nline;
+		else cout<<"="<<nline;
 	}
-	cout<<"NO"<<nline;
+	else{
+		if(abs(a)>abs(b)) cout<<">";
+		else if(abs(a)<abs(b)) cout<<"<";
+		else cout<<"=";
+	}
 }
 
 int main() {
@@ -102,7 +98,7 @@ int main() {
 	auto start1 = high_resolution_clock::now();
 	int tc=1;
 	for (int t = 1; t <= tc; t++) {
-        //cout << "Case #" << t  << ": ";
+        // cout << "Case #" << t  << ": ";
         solve();
     }
 	auto stop1 = high_resolution_clock::now();

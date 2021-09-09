@@ -77,21 +77,18 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
-			}
-		}
-		else{
-			cout<<"NO"<<nline;
-			return;
-		}
+	unordered_map<char,int>freq;
+	string s;cin>>s;
+	for(int i=0;i<(int)s.size();i++){
+		freq[s[i]]++;
 	}
-	cout<<"NO"<<nline;
+	int total=0;
+	for(auto a: freq){
+		if(a.ss<=2) total+=a.ss;
+		else if(a.ss>=2) total+=2;
+	}
+	if(total%2==0) cout<<total/2<<nline;
+	else cout<<(total-1)/2<<nline;
 }
 
 int main() {
@@ -100,7 +97,7 @@ int main() {
 #endif
 	fastio();
 	auto start1 = high_resolution_clock::now();
-	int tc=1;
+	int tc;cin>>tc;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
         solve();

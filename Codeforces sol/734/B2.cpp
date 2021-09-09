@@ -77,21 +77,41 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
 void solve() {
-	int n;cin>>n;
-	vector<int>arr={4,7,47,74,444,447,477,744,747,774,777};
-	for(int i=0;i<arr.size();i++){
-		if(arr[i]<=n){
-			if(n%arr[i]==0){
-				cout<<"YES"<<nline;
-				return;
+	
+	int n,k;cin>>n>>k;
+	vector<int>arr(n);
+	for(int i=0;i<n;i++)
+		cin>>arr[i];
+
+	vector<int> freq(n+1);
+	vector<int>ans(n);
+	vector<vector<int>> occu(n+1,vector<int>());
+	for(int i=0;i<n;i++){
+		freq[arr[i]]++;
+		occu[arr[i]].pb(i);
+	}
+	vector<int> color;
+	for(int i=1;i<=n;i++){
+		if(freq[i]>=k){
+			for(int j=0;j<k;j++){
+				ans[occu[i][j]]=j+1;
 			}
 		}
 		else{
-			cout<<"NO"<<nline;
-			return;
+			for(int j=0;j<freq[i];j++){
+				color.pb(occu[i][j]);
+			}
+		}
+	}	
+	for(int i=0;i<=(int)color.size()-k;i+=k){
+		for(int j=0;j<k;j++){
+			ans[color[i+j]]=j+1;
 		}
 	}
-	cout<<"NO"<<nline;
+	for(int i=0;i<n;i++){
+		cout<<ans[i]<<" ";
+	}
+	cout<<nline;
 }
 
 int main() {
@@ -100,7 +120,7 @@ int main() {
 #endif
 	fastio();
 	auto start1 = high_resolution_clock::now();
-	int tc=1;
+	int tc;cin>>tc;
 	for (int t = 1; t <= tc; t++) {
         //cout << "Case #" << t  << ": ";
         solve();
